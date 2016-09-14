@@ -9,6 +9,7 @@
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_DbContextTypeFullName>LottResultsApi.DAL.LottResultContext</WebStackScaffolding_DbContextTypeFullName>
+    <NameOfLastUsedPublishProfile>LottResultsApi%28lott%29</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

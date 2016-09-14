@@ -7,7 +7,7 @@ using LottResultsApi.Models;
 
 namespace LottResultsApi.DAL
 {
-    public class LottResultInitializer:DropCreateDatabaseIfModelChanges<LottResultContext>
+    public class LottResultInitializer : CreateDatabaseIfNotExists<LottResultContext>
     {
         protected override void Seed(LottResultContext context)
         {
@@ -59,6 +59,20 @@ namespace LottResultsApi.DAL
                 },
                 new LottResult
                 {
+                    Name = "Oz Lotto",
+                    LottResultDescId = lottResultDescs[0].Id,
+                    CurrentDrawDate = new DateTime(2016,9,13),
+                    CurrentDrawNumber = 1060,
+                    NextDrawDate = new DateTime(2016,9,20),
+                    NextDrawNumber = 1061,
+                    WinningNumbersName ="Winning Numbers", 
+                    WinningNumbers = "42,19,30,29,1,3, 44",
+                    SupplementariesName = "Supplementaries",
+                    Supplementaries = "2",
+                    Memo = "*Set for Life 1st Prize is a maximum of $20,000 a month for 20 years guaranteed for up to 4 winners, or if there are more than 4 winners the total 1st Prize Pool of $19,200,000 is evenly shared via monthly instalments. ",
+                },
+                new LottResult
+                {
                     Name = "Powerball",
                     LottResultDescId = lottResultDescs[1].Id,
                     CurrentDrawDate = new DateTime(2016,9,18),
@@ -79,7 +93,6 @@ namespace LottResultsApi.DAL
             {
                 new LottResultDetail
                 {
-                    LottResultId = lottResults[0].Id,
                     ColValue0 = "Division 1",
                     ColValue1 = "$200,493.60",
                     ColValue2 = "$4,210,365.60",
@@ -89,7 +102,6 @@ namespace LottResultsApi.DAL
                 },
                 new LottResultDetail
                 {
-                    LottResultId = lottResults[0].Id,
                     ColValue0 = "Division 2",
                     ColValue1 = "$300,493.60",
                     ColValue2 = "$3,210,365.60",
@@ -99,7 +111,6 @@ namespace LottResultsApi.DAL
                 },
                 new LottResultDetail
                 {
-                    LottResultId = lottResults[0].Id,
                     ColValue0 = "Division 3",
                     ColValue1 = "$400,493.60",
                     ColValue2 = "$1,210,365.60",
@@ -109,7 +120,6 @@ namespace LottResultsApi.DAL
                 },
                 new LottResultDetail
                 {
-                    LottResultId = lottResults[0].Id,
                     ColValue0 = "Division 4",
                     ColValue1 = "$200,493.60",
                     ColValue2 = "$4,210,365.60",
@@ -119,7 +129,6 @@ namespace LottResultsApi.DAL
                 },
                 new LottResultDetail
                 {
-                    LottResultId = lottResults[0].Id,
                     ColValue0 = "Division 4",
                     ColValue1 = "$200,493.60",
                     ColValue2 = "$4,210,365.60",
@@ -129,7 +138,6 @@ namespace LottResultsApi.DAL
                 },
                 new LottResultDetail
                 {
-                    LottResultId = lottResults[0].Id,
                     ColValue0 = "Division 5",
                     ColValue1 = "$200,493.60",
                     ColValue2 = "$4,210,365.60",
@@ -139,7 +147,6 @@ namespace LottResultsApi.DAL
                 },
                 new LottResultDetail
                 {
-                    LottResultId = lottResults[0].Id,
                     ColValue0 = "Division 6",
                     ColValue1 = "$200,493.60",
                     ColValue2 = "$4,210,365.60",
@@ -148,7 +155,15 @@ namespace LottResultsApi.DAL
                     ColValue5 = "",
                 },
             };
-            lottResultDetails.ForEach(lrd => context.LottResultDetails.Add(lrd));
+            lottResults.ForEach(lr =>
+            {
+                lottResultDetails.ForEach(lrd =>
+                {
+                    var newLrd = lrd.ShallowCopy();
+                    newLrd.LottResultId = lr.Id;
+                    context.LottResultDetails.Add(newLrd);
+                });
+            });
             context.SaveChanges();
         }
     }

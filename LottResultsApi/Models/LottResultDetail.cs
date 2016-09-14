@@ -26,5 +26,9 @@ namespace LottResultsApi.Models
         public string ColValue8 { get; set; }
         public string ColValue9 { get; set; }
 
+        public LottResultDetail ShallowCopy()
+        {
+            return (LottResultDetail) this.MemberwiseClone();
+        }
     }
 }

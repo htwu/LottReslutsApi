@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -20,8 +22,16 @@ namespace LottResultsApi.Controllers
         public IQueryable<LottResult> GetLottResults()
         {
             //no lazy loading to avoid multi data reader
-            return _lottResultService.GetAll().Include(lr => lr.LottResultDesc)
-                .Include(lr => lr.LottResultDetails);
+//            try
+//            {
+                return _lottResultService.GetAll().Include(lr => lr.LottResultDesc)
+                    .Include(lr => lr.LottResultDetails);
+//            }
+//            catch (Exception e)
+//            {
+//                Console.WriteLine(e.Message);
+//                return null;
+//            }
         }
 
         // GET: api/LottResults/
